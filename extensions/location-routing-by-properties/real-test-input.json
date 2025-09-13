@@ -1,0 +1,30 @@
+{
+  "fulfillmentGroups": [
+    {
+      "handle": "1",
+      "inventoryLocationHandles": [
+        "108050547019",
+        "108050645323"
+      ],
+      "lines": [
+        {
+          "attribute": {
+            "key": "_Location ID",
+            "value": "108050547019"
+          },
+          "id": "gid://shopify/CartLine/0"
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "handle": "108050547019",
+      "id": "gid://shopify/Location/108050547019"
+    },
+    {
+      "handle": "108050645323",
+      "id": "gid://shopify/Location/108050645323"
+    }
+  ]
+}

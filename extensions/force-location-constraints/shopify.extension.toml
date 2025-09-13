@@ -1,0 +1,22 @@
+api_version = "2025-07"
+
+[[extensions]]
+name = "t:name"
+handle = "force-location-constraints"
+type = "function"
+
+description = "t:description"
+
+  [[extensions.targeting]]
+  target = "cart.fulfillment-constraints.generate.run"
+  input_query = "src/cart_fulfillment_constraints_generate_run.graphql"
+  export = "cart_fulfillment_constraints_generate_run"
+
+  [extensions.build]
+  command = "cargo build --target=wasm32-wasip1 --release"
+  path = "target/wasm32-wasip1/release/force-location-constraints.wasm"
+  watch = [ "src/**/*.rs" ]
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"

@@ -1,0 +1,17 @@
+query Input {
+  fulfillmentGroups {
+    handle
+    inventoryLocationHandles
+    lines {
+      id
+      attribute(key: "_Location ID") {
+        key
+        value
+      }
+    }
+  }
+  locations {
+    handle
+    id
+  }
+}

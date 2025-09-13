@@ -1,0 +1,45 @@
+{
+  "fulfillmentGroups": [
+    {
+      "handle": "group-1",
+      "inventoryLocationHandles": ["location-handle-1", "location-handle-2", "location-handle-3"],
+      "lines": [
+        {
+          "id": "gid://shopify/CartLine/1",
+          "attribute": {
+            "key": "_Location ID",
+            "value": "99997811016"
+          }
+        },
+        {
+          "id": "gid://shopify/CartLine/2",
+          "attribute": null
+        }
+      ]
+    },
+    {
+      "handle": "group-2", 
+      "inventoryLocationHandles": ["location-handle-1", "location-handle-2"],
+      "lines": [
+        {
+          "id": "gid://shopify/CartLine/3",
+          "attribute": null
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "handle": "location-handle-1",
+      "id": "gid://shopify/Location/99997811016"
+    },
+    {
+      "handle": "location-handle-2",
+      "id": "gid://shopify/Location/99997811017"
+    },
+    {
+      "handle": "location-handle-3",
+      "id": "gid://shopify/Location/99997811018"
+    }
+  ]
+}

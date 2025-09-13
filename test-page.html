@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Routing Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        input { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; }
+        .result { margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Order Routing Location Rule Test</h1>
+    
+    <div class="test-section info">
+        <h2>📋 Setup Instructions</h2>
+        <ol>
+            <li>Go to your Shopify Admin → Settings → Shipping and delivery</li>
+            <li>Scroll to "Order routing" → Click "Manage"</li>
+            <li>Click "Add rule" and select "location-routing-by-properties"</li>
+            <li>Drag it to the top to make it highest priority</li>
+            <li>Save the changes</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Configuration</h2>
+        <label>Variant ID: <input type="text" id="variantId" placeholder="e.g., 39897499729985"></label><br>
+        <label>Location ID 1: <input type="text" id="locationId1" placeholder="e.g., 99997811016"></label><br>
+        <label>Location ID 2: <input type="text" id="locationId2" placeholder="e.g., 99997811017"></label><br>
+        <small>💡 Find these in your Shopify Admin. Location ID is in the URL when editing a location.</small>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test 1: With Location Preference</h2>
+        <p>This should route to the specified location.</p>
+        <button onclick="testWithLocation()">Add to Cart with Location ID</button>
+        <div id="result1" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test 2: Without Location Preference</h2>
+        <p>This should use default Shopify routing.</p>
+        <button onclick="testWithoutLocation()">Add to Cart (No Location)</button>
+        <div id="result2" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Current Cart</h2>
+        <button onclick="showCart()">View Current Cart</button>
+        <button onclick="clearCart()">Clear Cart</button>
+        <div id="cartResult" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section success">
+        <h2>✅ Verification Steps</h2>
+        <ol>
+            <li>Complete checkout for both test cases</li>
+            <li>Check orders in Shopify Admin → Orders</li>
+            <li>Verify fulfillment locations match expectations</li>
+            <li>Order with <code>_Location ID</code> should go to specified location</li>
+            <li>Order without property should use default location</li>
+        </ol>
+    </div>
+
+    <script>
+        function getVariantId() {
+            const id = document.getElementById('variantId').value;
+            if (!id) {
+                alert('Please enter a Variant ID');
+                return null;
+            }
+            return id;
+        }
+
+        function getLocationId1() {
+            const id = document.getElementById('locationId1').value;
+            if (!id) {
+                alert('Please enter Location ID 1');
+                return null;
+            }
+            return id;
+        }
+
+        async function testWithLocation() {
+            const variantId = getVariantId();
+            const locationId = getLocationId1();
+            if (!variantId || !locationId) return;
+
+            try {
+                const response = await fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'items': [{
+                            'id': variantId,
+                            'quantity': 1,
+                            'properties': {
+                                '_Location ID': locationId
+                            }
+                        }]
+                    })
+                });
+                
+                const data = await response.json();
+                const resultDiv = document.getElementById('result1');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h4>✅ Added with Location ID: ${locationId}</h4>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result1').innerHTML = `<h4>❌ Error: ${error.message}</h4>`;
+            }
+        }
+
+        async function testWithoutLocation() {
+            const variantId = getVariantId();
+            if (!variantId) return;
+
+            try {
+                const response = await fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'items': [{
+                            'id': variantId,
+                            'quantity': 1
+                        }]
+                    })
+                });
+                
+                const data = await response.json();
+                const resultDiv = document.getElementById('result2');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h4>✅ Added without location preference</h4>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result2').innerHTML = `<h4>❌ Error: ${error.message}</h4>`;
+            }
+        }
+
+        async function showCart() {
+            try {
+                const response = await fetch('/cart.js');
+                const cart = await response.json();
+                const resultDiv = document.getElementById('cartResult');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h4>🛒 Current Cart (${cart.item_count} items)</h4>
+                    <pre>${JSON.stringify(cart, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function clearCart() {
+            try {
+                await fetch('/cart/clear.js', { method: 'POST' });
+                document.getElementById('cartResult').innerHTML = '<h4>🗑️ Cart cleared</h4>';
+                document.getElementById('cartResult').style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

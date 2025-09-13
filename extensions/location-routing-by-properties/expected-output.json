@@ -1,0 +1,38 @@
+{
+  "operations": [
+    {
+      "fulfillmentGroupLocationRankingAdd": {
+        "fulfillmentGroupHandle": "group-1",
+        "rankings": [
+          {
+            "locationHandle": "location-handle-1",
+            "rank": 0
+          },
+          {
+            "locationHandle": "location-handle-2", 
+            "rank": 1
+          },
+          {
+            "locationHandle": "location-handle-3",
+            "rank": 1
+          }
+        ]
+      }
+    },
+    {
+      "fulfillmentGroupLocationRankingAdd": {
+        "fulfillmentGroupHandle": "group-2",
+        "rankings": [
+          {
+            "locationHandle": "location-handle-1",
+            "rank": 0
+          },
+          {
+            "locationHandle": "location-handle-2",
+            "rank": 0
+          }
+        ]
+      }
+    }
+  ]
+}

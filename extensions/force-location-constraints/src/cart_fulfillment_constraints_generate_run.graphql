@@ -1,0 +1,15 @@
+query Input {
+  cart {
+    deliverableLines {
+      id
+      attribute(key: "_Location ID") {
+        key
+        value
+      }
+    }
+  }
+  locations {
+    handle
+    id
+  }
+}
