@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "102a337927c8cfef1bab0cdd6f7d55b7"
-name = "order-routing-v4"
+name = "Prebuy Order Routing V1"
 handle = "order-routing-v4"
 application_url = "https://shopify.dev/apps/default-app-home"
 embedded = true

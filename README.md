@@ -1,28 +1,22 @@
 # Prebuy Order Routing - Shopify Functions
 
-A Shopify app that implements intelligent order routing using Shopify Functions to route orders based on line item properties and enforce location-specific fulfillment constraints.
+A Shopify app that implements intelligent order routing using Shopify Functions to route orders based on line item properties.
 
 ## 🚀 Overview
 
-This app contains two complementary Shopify Functions that work together to provide complete control over order routing and fulfillment:
+This app contains a Shopify Function that provides intelligent order routing:
 
-### 1. **Location Routing by Properties**
+### **Location Routing by Properties**
 - **Purpose**: Routes orders to specific locations based on line item properties
 - **Location**: `extensions/location-routing-by-properties/`
 - **Function**: Prioritizes locations based on `_locationId` properties in cart items
-
-### 2. **Force Location Constraints** 
-- **Purpose**: Enforces fulfillment constraints to override inventory availability
-- **Location**: `extensions/force-location-constraints/`
-- **Function**: Forces items to be fulfilled from specific locations regardless of stock levels
 
 ## 🔧 How It Works
 
 ### Complete Flow
 1. **Line item** contains property `_locationId: 108050547019`
 2. **Location Routing Function** runs → gives location `108050547019` rank 0 (highest priority)
-3. **Fulfillment Constraints Function** runs → creates constraints to force fulfillment from specified location
-4. **Result**: Item MUST be fulfilled from `108050547019`, even if inventory is unavailable
+3. **Result**: Item gets prioritized to fulfill from `108050547019`
 
 ### Function Execution Order
 ```
@@ -30,15 +24,13 @@ Order Placed
     ↓
 Location Routing Function (Rank 0 to preferred location)
     ↓
-Fulfillment Constraints Function (Force fulfillment grouping)
-    ↓
-Shopify Fulfillment (Respects constraints)
+Shopify Fulfillment (Respects location rankings)
 ```
 
 ## 📋 Features
 
 - **Property-Based Routing**: Routes based on `_locationId` line item properties
-- **Inventory Override**: Forces fulfillment even when location has no inventory
+- **Location Prioritization**: Gives preferred locations highest priority (rank 0)
 - **Multi-Location Support**: Handles complex multi-location scenarios
 - **Shopify Markets Compatible**: Works with international markets and locations
 - **Debug-Friendly**: Comprehensive logging for troubleshooting
