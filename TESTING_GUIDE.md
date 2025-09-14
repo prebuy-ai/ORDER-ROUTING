@@ -49,7 +49,7 @@ fetch('/cart/add.js', {
       'id': 'YOUR_VARIANT_ID',  // Replace with actual variant ID
       'quantity': 1,
       'properties': {
-        '_Location ID': 'YOUR_LOCATION_ID'  // Replace with actual location ID
+        '_locationId': 'YOUR_LOCATION_ID'  // Replace with actual location ID
       }
     }]
   })
@@ -83,7 +83,7 @@ fetch('/cart/add.js', {
 1. **Complete the checkout** for both test cases
 2. **Check the orders** in Admin → Orders
 3. **Verify fulfillment location**:
-   - Order with `_Location ID` should be assigned to specified location
+   - Order with `_locationId` should be assigned to specified location
    - Order without property should use default location
 
 ## Step 6: Debug Function Execution
@@ -119,7 +119,7 @@ Look for function execution logs when orders are placed.
 - Ensure location is active and can fulfill orders
 
 ### Property not being read?
-- Verify property key is exactly `_Location ID` (case sensitive)
+- Verify property key is exactly `_locationId` (case sensitive)
 - Check property value is numeric string (e.g., "12345678")
 - Ensure property is set on line item, not cart level
 
@@ -140,7 +140,7 @@ await fetch('/cart/add.js', {
     items: [{
       id: 'YOUR_VARIANT_ID',
       quantity: 1,
-      properties: {'_Location ID': 'YOUR_LOCATION_ID'}
+      properties: {'_locationId': 'YOUR_LOCATION_ID'}
     }]
   })
 });

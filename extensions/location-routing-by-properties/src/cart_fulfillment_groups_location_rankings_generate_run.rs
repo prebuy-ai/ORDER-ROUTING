@@ -25,12 +25,12 @@ fn cart_fulfillment_groups_location_rankings_generate_run(
         .fulfillment_groups()
         .iter()
         .map(|group| {
-            // Check if any line items in this group have a _Location ID property
+            // Check if any line items in this group have a _locationId property
             let mut preferred_location_handle: Option<String> = None;
             
             for line in group.lines() {
                 if let Some(attribute) = line.attribute() {
-                    if attribute.key() == "_Location ID" {
+                    if attribute.key() == "_locationId" {
                         if let Some(location_id_str) = attribute.value() {
                             // Try to parse the location ID and find the corresponding handle
                             if let Ok(location_id) = location_id_str.parse::<u64>() {
@@ -151,7 +151,7 @@ mod tests {
                         "lines": [{
                             "id": "gid://shopify/CartLine/1",
                             "attribute": {
-                                "key": "_Location ID",
+                                "key": "_locationId",
                                 "value": "99997811016"
                             }
                         }]

@@ -4,9 +4,9 @@ This Shopify Function extension implements custom order routing logic that route
 
 ## How it Works
 
-When an order is placed and includes a line item with a custom property like `_Location ID: 99997811016`, this function will:
+When an order is placed and includes a line item with a custom property like `_locationId: 99997811016`, this function will:
 
-1. Parse the line item properties to find any `_Location ID` attributes
+1. Parse the line item properties to find any `_locationId` attributes
 2. Match the location ID value to the actual location handle using the locations data
 3. Prioritize the specified location for fulfillment by giving it rank 0 (highest priority)
 4. Give all other locations rank 1 (lower priority)
@@ -14,13 +14,13 @@ When an order is placed and includes a line item with a custom property like `_L
 ## Line Item Property Format
 
 The function looks for line item properties with:
-- **Key**: `_Location ID` 
+- **Key**: `_locationId` 
 - **Value**: The numeric location ID (e.g., `99997811016`)
 
 ## Example Scenario
 
 If a cart contains:
-- Line item with property `_Location ID: 99997811016`
+- Line item with property `_locationId: 99997811016`
 - Available locations: Location A (ID: 99997811016), Location B (ID: 99997811017), Location C (ID: 99997811018)
 
 The function will:
@@ -70,5 +70,5 @@ shopify app function run --input=input.json --export=cart_fulfillment_groups_loc
 
 This function requires:
 - Shopify Plus plan (for custom order routing location rules)
-- Line items with `_Location ID` properties set at the storefront/cart level
+- Line items with `_locationId` properties set at the storefront/cart level
 - Valid location IDs that correspond to actual store locations

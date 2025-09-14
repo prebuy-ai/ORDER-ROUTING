@@ -8,7 +8,7 @@ The location routing function was working correctly (giving the right location r
 We now have **two complementary functions** that work together:
 
 ### 1. **Location Routing Function** (Existing)
-- **Purpose**: Prioritizes locations based on `_Location ID` properties
+- **Purpose**: Prioritizes locations based on `_locationId` properties
 - **Location**: `extensions/location-routing-by-properties/`
 - **What it does**: Gives preferred location rank 0 (highest priority)
 
@@ -19,7 +19,7 @@ We now have **two complementary functions** that work together:
 
 ## How It Works Together
 
-1. **Line item** has property `_Location ID: 108050547019`
+1. **Line item** has property `_locationId: 108050547019`
 2. **Location Routing Function** runs → prioritizes location `108050547019`
 3. **Fulfillment Constraints Function** runs → **forces** items with location properties to be fulfilled together
 4. **Result**: Item MUST be fulfilled from `108050547019`, even if no inventory
@@ -59,7 +59,7 @@ Shopify fulfills from specified location (ignoring inventory)
 ## Testing
 
 With both functions active:
-- Add item with `_Location ID: 108050547019` property
+- Add item with `_locationId: 108050547019` property
 - Complete checkout
 - Order will be assigned to location `108050547019` **regardless of inventory**
 

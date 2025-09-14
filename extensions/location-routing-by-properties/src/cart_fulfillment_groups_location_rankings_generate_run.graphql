@@ -4,7 +4,7 @@ query Input {
     inventoryLocationHandles
     lines {
       id
-      attribute(key: "_Location ID") {
+      attribute(key: "_locationId") {
         key
         value
       }

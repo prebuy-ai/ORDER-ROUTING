@@ -9,7 +9,7 @@ This app contains two complementary Shopify Functions that work together to prov
 ### 1. **Location Routing by Properties**
 - **Purpose**: Routes orders to specific locations based on line item properties
 - **Location**: `extensions/location-routing-by-properties/`
-- **Function**: Prioritizes locations based on `_Location ID` properties in cart items
+- **Function**: Prioritizes locations based on `_locationId` properties in cart items
 
 ### 2. **Force Location Constraints** 
 - **Purpose**: Enforces fulfillment constraints to override inventory availability
@@ -19,7 +19,7 @@ This app contains two complementary Shopify Functions that work together to prov
 ## 🔧 How It Works
 
 ### Complete Flow
-1. **Line item** contains property `_Location ID: 108050547019`
+1. **Line item** contains property `_locationId: 108050547019`
 2. **Location Routing Function** runs → gives location `108050547019` rank 0 (highest priority)
 3. **Fulfillment Constraints Function** runs → creates constraints to force fulfillment from specified location
 4. **Result**: Item MUST be fulfilled from `108050547019`, even if inventory is unavailable
@@ -37,7 +37,7 @@ Shopify Fulfillment (Respects constraints)
 
 ## 📋 Features
 
-- **Property-Based Routing**: Routes based on `_Location ID` line item properties
+- **Property-Based Routing**: Routes based on `_locationId` line item properties
 - **Inventory Override**: Forces fulfillment even when location has no inventory
 - **Multi-Location Support**: Handles complex multi-location scenarios
 - **Shopify Markets Compatible**: Works with international markets and locations
@@ -109,7 +109,7 @@ ORDER-ROUTING/
 The functions expect line items to have properties in this format:
 
 ```
-Property Key: "_Location ID"
+Property Key: "_locationId"
 Property Value: "108050547019" (numeric location ID)
 ```
 
@@ -117,7 +117,7 @@ Property Value: "108050547019" (numeric location ID)
 ```javascript
 {
   "properties": {
-    "_Location ID": "108050547019"
+    "_locationId": "108050547019"
   }
 }
 ```
@@ -127,7 +127,7 @@ Property Value: "108050547019" (numeric location ID)
 See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing instructions.
 
 ### Quick Test
-1. Create a cart with line item property `_Location ID: [your-location-id]`
+1. Create a cart with line item property `_locationId: [your-location-id]`
 2. Place order
 3. Check fulfillment routing in Shopify admin
 4. Verify order is routed to specified location
@@ -163,7 +163,7 @@ Each function has its own `shopify.extension.toml` file for:
    - Ensure locations exist and are active
 
 2. **Routing not working**
-   - Confirm `_Location ID` matches actual location ID in Shopify
+   - Confirm `_locationId` matches actual location ID in Shopify
    - Check function logs in Shopify Partner Dashboard
    - Verify both functions are deployed and active
 

@@ -64,7 +64,7 @@
             <li>Complete checkout for both test cases</li>
             <li>Check orders in Shopify Admin → Orders</li>
             <li>Verify fulfillment locations match expectations</li>
-            <li>Order with <code>_Location ID</code> should go to specified location</li>
+            <li>Order with <code>_locationId</code> should go to specified location</li>
             <li>Order without property should use default location</li>
         </ol>
     </div>
@@ -104,7 +104,7 @@
                             'id': variantId,
                             'quantity': 1,
                             'properties': {
-                                '_Location ID': locationId
+                                '_locationId': locationId
                             }
                         }]
                     })

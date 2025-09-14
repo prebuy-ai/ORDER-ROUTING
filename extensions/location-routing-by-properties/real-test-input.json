@@ -9,7 +9,7 @@
       "lines": [
         {
           "attribute": {
-            "key": "_Location ID",
+            "key": "_locationId",
             "value": "108050547019"
           },
           "id": "gid://shopify/CartLine/0"

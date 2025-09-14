@@ -2,7 +2,7 @@ query Input {
   cart {
     deliverableLines {
       id
-      attribute(key: "_Location ID") {
+      attribute(key: "_locationId") {
         key
         value
       }

@@ -28,7 +28,7 @@ fn cart_fulfillment_constraints_generate_run(
     
     for line in input.cart().deliverable_lines() {
         if let Some(attribute) = line.attribute() {
-            if attribute.key() == "_Location ID" {
+            if attribute.key() == "_locationId" {
                 if let Some(location_id_str) = attribute.value() {
                     // Try to parse the location ID and find the corresponding handle
                     if let Ok(location_id) = location_id_str.parse::<u64>() {
@@ -113,14 +113,14 @@ mod tests {
                     {
                       "id": "gid://shopify/CartLine/1",
                       "attribute": {
-                        "key": "_Location ID",
+                        "key": "_locationId",
                         "value": "108050547019"
                       }
                     },
                     {
                       "id": "gid://shopify/CartLine/2",
                       "attribute": {
-                        "key": "_Location ID", 
+                        "key": "_locationId", 
                         "value": "108050547019"
                       }
                     }
